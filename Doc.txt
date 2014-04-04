@@ -1,0 +1,11 @@
+	
+			NEED FOR NETWORK SIMLATOR
+	In Communication and Computer research,network simulation is a technique where a program models the behaviour of a network either by calculating the interaction between the different network entities using mathematical formulas or actually capturing and playing back observations from a production network.A network simulator is software or hardware that predicts the behavior of a computer network without an actual network being present.The behaviour of the network and the various application and services it suports can then be observed in a test lab. The various attributes of the environment can also be modified in a controlled manner to assess how the network would behave under different conditions.
+
+	The network simulator is discrete event packet level simulator.The network simulator covers a very large number of application of different kind of protocols of different network types consisting of different network elements and traffic models.Network simulator is a package of tools that simulates behavior of networks such as creating network topologies, log events that happen under any load,analyze the events and understand the network
+
+			INTRODUCTION TO NS2
+	Ns is a discrete event simulator targeted at networking research. Ns provides substantial support for simulation of TCP, routing, and multicast protocols over wired and wireless networks.Ns began as a variant of the REAL network simulator in 1989 and has evolved substantially over the past few years. In 1995 ns development was supported by DARPA through the VINT project at LBL, Xerox PARC, UCB, and USC/ISI. Currently ns development is supported through DARPA with SAMAN and through NSF with CONSER, both in collaboration with other researchers including ACIRI. Ns has always included substantal contributions from other researchers, including wireless code from the UCB Daedelus and CMU Monarch projects and Sun Microsystems.
+
+			HOW NS2 WORKS
+NS simulator
