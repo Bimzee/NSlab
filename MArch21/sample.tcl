@@ -18,11 +18,13 @@ $ns duplex-link $n0 $n1 1Mb 10ms DropTail
 
 #Create proto Agent to the source
 set tcp0 [new Agent/TCP]
-$ns attach-agent $n0 $tcp0
+#Attach agent to source
+$ns attach-agent $n0 $tcp0 
 
-#Create sink/ Dest
+#Create proto agent to sink/ Dest
 set sink0 [new Agent/TCPSink]
-$ns attach-agent $n1 $sink0
+#Attach agent to Dest
+$ns attach-agent $n1 $sink0 
 
 #Create application of FTP
 set ftp0 [new Application/FTP]
