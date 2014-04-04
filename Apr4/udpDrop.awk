@@ -7,14 +7,14 @@ data=0;
 }
 
 {
-if($1=="d" && $4=="1" && $5=="cbr")
+if($1=="d" && $5=="cbr")
 {
-data += $6
+data += 1
 
 }
 }
 END{
-print $2, data*8.0/$2/10000
+print  data
 }
 
 #To plot the output to the graph
