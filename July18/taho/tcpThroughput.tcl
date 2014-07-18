@@ -1,0 +1,141 @@
+#create Simulator object
+set ns [new Simulator]
+
+#files for tracing conjustion window
+set f0 [open tcp0.tr w]
+set f1 [open tcp1.tr w]
+set f2 [open tcp2.tr w]
+
+set nf [open varitcp.tr w]
+$ns trace-all $nf
+
+set nr [open varitcp.nam w]
+$ns namtrace-all $nr
+
+proc finish {} { puts "complete"; exit 0 }
+
+#creating nodes
+set n0 [$ns node]
+set n1 [$ns node]
+set n2 [$ns node]
+set n3 [$ns node]
+set n4 [$ns node]
+set n5 [$ns node]
+set n6 [$ns node]
+set n7 [$ns node]
+
+#create link. Here we use duplex link
+
+#Set link b/n node0 & node3
+$ns duplex-link $n0 $n3 2Mb 10ms DropTail 
+$ns duplex-link $n1 $n3 2Mb 10ms DropTail
+$ns duplex-link $n2 $n3 2Mb 10ms DropTail
+#Set link b/n node3 & node4
+$ns duplex-link $n3 $n4 1Mb 10ms DropTail 
+#Set link b/n node4 & node5
+$ns duplex-link $n4 $n5 2Mb 10ms DropTail 
+$ns duplex-link $n4 $n6 2Mb 10ms DropTail
+$ns duplex-link $n4 $n7 2Mb 10ms DropTail
+
+#Creating the protocol agents of source
+
+#Create proto Agent to the source
+#Attach agent to source
+#default TCP varient is TCP taho
+set tcp0 [new Agent/TCP] 
+$ns attach-agent $n0 $tcp0
+
+set tcp1 [new Agent/TCP]
+$ns attach-agent $n1 $tcp1
+
+set tcp2 [new Agent/TCP]
+$ns attach-agent $n2 $tcp2
+
+#all source agents created
+
+#creating proto agents of Dest
+set sink5 [new Agent/TCPSink]
+$ns attach-agent $n5 $sink5
+
+set sink6 [new Agent/TCPSink]
+$ns attach-agent $n6 $sink6
+
+set sink7 [new Agent/TCPSink]
+$ns attach-agent $n7 $sink7
+
+#all Dest agents created
+
+set ftp0 [new Application/FTP]
+$ftp0 attach-agent $tcp0
+$ftp0 set packetSize_ 500
+$ftp0 set interval_ 0.005
+
+set ftp1 [new Application/FTP]
+$ftp1 attach-agent $tcp1
+$ftp1 set packetSize_ 500
+$ftp1 set interval_ 0.005
+
+set ftp2 [new Application/FTP]
+$ftp2 attach-agent $tcp2
+$ftp2 set packetSize_ 500
+$ftp2 set interval_ 0.005
+
+#Set flowid values since we are using UDP
+$tcp0 set fid_ 1
+$tcp1 set fid_ 2
+$tcp2 set fid_ 3
+
+#$ns color 1 RED
+#$ns color 2 GREEN
+#$ns color 1 BLUE
+
+#Connecting different source and Destinations
+
+#Connect n0 to n5
+$ns connect $tcp0 $sink5  
+#Connect n1 to n6
+$ns connect $tcp1 $sink6  
+#Connect n2 to n7
+$ns connect $tcp2 $sink7 
+
+#procedure to record cwnd values
+proc record {} {
+global ns tcp0 tcp1 tcp2 f0 f1 f2
+
+set time 0.01
+
+set wnd0 [$tcp0 set cwnd_ ]
+set wnd1 [$tcp1 set cwnd_ ]
+set wnd2 [$tcp2 set cwnd_ ]
+
+set now [$ns now]
+
+puts $f0 "$now $wnd0"
+puts $f1 "$now $wnd1"
+puts $f2 "$now $wnd2"
+
+$ns at [expr $now + $time] "record"
+}
+
+
+#start the applications
+#App objects are $vars eg. $ftp0 
+
+$ns at 0.1 "record"
+ 
+$ns at 0.1 "$ftp0 start"
+$ns at 0.1 "$ftp1 start"
+$ns at 0.1 "$ftp2 start"
+
+$ns at 6.0 "$ftp0 stop"
+$ns at 6.5 "$ftp1 stop"
+$ns at 4.5 "$ftp2 stop"
+
+$ns at 7.0 "finish"
+
+$ns run
+#to run 
+#ns tcpVarient.tcl
+
+#
+

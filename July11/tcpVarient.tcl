@@ -7,8 +7,7 @@ set f1 [open tcp1.tr w]
 set f2 [open tcp2.tr w]
 
 set nf [open varitcp.tr w]
-
-$ns namtrace-all $nf
+$ns trace-all $nf
 
 set nr [open varitcp.nam w]
 $ns namtrace-all $nr

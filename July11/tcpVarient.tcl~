@@ -42,13 +42,13 @@ $ns duplex-link $n4 $n7 2Mb 10ms DropTail
 
 #Create proto Agent to the source
 #Attach agent to source
-set tcp0 [new Agent/TCP/Taho] 
+set tcp0 [new Agent/TCP] 
 $ns attach-agent $n0 $tcp0
 
-set tcp1 [new Agent/TCP/Taho]
+set tcp1 [new Agent/TCP]
 $ns attach-agent $n1 $tcp1
 
-set tcp2 [new Agent/TCP/Taho]
+set tcp2 [new Agent/TCP]
 $ns attach-agent $n2 $tcp2
 
 #all source agents created
