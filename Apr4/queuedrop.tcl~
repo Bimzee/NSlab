@@ -35,7 +35,7 @@ $ns duplex-link $n4 $n6 1Mb 10ms DropTail
 $ns duplex-link $n4 $n7 1Mb 10ms DropTail
 
 #Creating the protocol agents of source
-#proto agents ovewr here are UDP
+#set udp0 [ new Agent/UDP] #proto agents ovewr here are UDP
 
 #Create proto Agent to the source
 #Attach agent to source
